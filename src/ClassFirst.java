@@ -6,4 +6,8 @@ public class ClassFirst {
     void b(){
 
     }
+
+    void c(){
+
+    }
 }
