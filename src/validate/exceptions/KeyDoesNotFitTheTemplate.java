@@ -1,4 +1,4 @@
-package validate;
+package validate.exceptions;
 
 public class KeyDoesNotFitTheTemplate extends RuntimeException {
     public KeyDoesNotFitTheTemplate(String message) {

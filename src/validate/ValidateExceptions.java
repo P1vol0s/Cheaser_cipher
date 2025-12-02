@@ -1,47 +1,40 @@
 package validate;
-
+import validate.exceptions.FileNotExist;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ValidateExceptions {
-    private static final Path textDirPath = Path.of("C:\\Users\\user\\IdeaProjects\\Cheaser_cipher\\src\\text_dir");
+    private static final Path textDirPath = Path.of("src\\text_dir");
 
-    private static int count = 0;
-
-    // todo: создаем статическую переменную счетчик, которая будет увеличиваться каждый раз, когда создается
-    //      новый файл для записи
-
-
-    private static boolean validateSwitchInput(Scanner sc) {
+    private static boolean validateSwitchInput() {
         String yesOrNo;
         do {
-            yesOrNo = sc.nextLine();
-            if (!(yesOrNo.equalsIgnoreCase("Y") || yesOrNo.equalsIgnoreCase("N"))) {
-                System.out.println("Введено что-то странное. Пожалуйста, введите правильные значения");
-            }
-        } while (!(yesOrNo.equalsIgnoreCase("Y") || yesOrNo.equalsIgnoreCase("N")));
+            yesOrNo = IOtool.read();
+            if (!Arrays.asList("Y", "N").contains(yesOrNo))
+                System.err.print("Введено что-то странное. Пожалуйста, введите правильные значения (Y/N): ");
+        } while (!Arrays.asList("Y", "N").contains(yesOrNo));
         return yesOrNo.equalsIgnoreCase("y");
     }
 
-    public static boolean inputFileEqualNull() throws IOException {
-        sendErrMessage(new InputFileNotExist());
-        System.out.println("Создать новый файл для ввода данных? (Y/N)");
-        try (Scanner sc = new Scanner(System.in)) {
-            if (validateSwitchInput(sc)) {
-                Files.createFile(textDirPath);
-                return true;
-            }
-            System.out.println("Если вы не желаете создать новый файл, то либо введите \nновый путь к файлу (Y), либо завершите программу (N)");
-            if (!validateSwitchInput(sc)) {
-                closeProgram();
-            }
-            return false;
-            /*todo: если пользователь выбрал ввести заново, то программа возвращает false, а метод, который вызывает
-             *      делает все через do-while. В обработке исключений, если метод вернул false вызывается метод ввода файла*/
-        }
-        /*todo: 1) отправить пользователь сообщение с ошибкой, и предложить создать новый пустой файл в text_dir
+    public static String fileNotExistFix() {
+        sendErrMessage(new FileNotExist());
+        System.err.print("Создать новый файл данных? (Y/N): ");
+
+
+        if (validateSwitchInput())
+            return setNewFileName();
+        System.err.println("Если вы не желаете создать новый файл, то либо введите \nновый путь к файлу (Y), либо завершите программу (N)");
+        if (!validateSwitchInput())
+            closeProgram();
+        return null;
+        /*todo: если пользователь выбрал ввести заново, то программа возвращает false, а метод, который вызывает
+         *      делает все через do-while. В обработке исключений, если метод вернул false вызывается метод ввода файла
+         *
+         *todo: 1) отправить пользователь сообщение с ошибкой, и предложить создать новый пустой файл в text_dir
          *      2) если пользователь соглашается, то создаем новый файл
          *      3) если пользователь отказывается, то предлагаем ему ввести новое имя файла
          *      4) если пользователь выбрал ввести новое имя, то опять запускаем метод со вводом имени файла
@@ -49,12 +42,15 @@ public class ValidateExceptions {
          * */
     }
 
-    public static void outputFileEqualNull() {
-        /*todo: 1) отправить пользователь сообщение с ошибкой, и предложить создать новый пустой файл в text_dir
-                либо с названием, которое он предложит, либо с шаблонным названием
-         *      2) если пользователь соглашается придумать, то создаем новый файл с его названием
-         *      3) если пользователь отказался, то создаем файл с шаблонным названием
-         * */
+    private static String  setNewFileName(){
+        System.err.print("Введите имя файла: ");
+        var fileName = textDirPath.resolve(IOtool.read());
+        try {
+            Files.createFile(fileName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return fileName.toString();
     }
 
     public static void keyExceptionFix() {
@@ -84,7 +80,7 @@ public class ValidateExceptions {
     }
 
     private static void closeProgram() {
-        System.out.println("Программа завершена.");
+
         System.exit(0);
         /*todo: 1) отправляет сообщение со словами "ЗАВЕРШЕНИЕ ПРОГРАМЫ"
                 2)прерывает работу всей программы */

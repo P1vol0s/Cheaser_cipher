@@ -1,20 +1,31 @@
-import Chipher.CeaserCipher;
+import validate.IOtool;
+import validate.ValidateExceptions;
+import validate.ValidateInput;
+import validate.exceptions.FileNotExist;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        //String fileName = sc.nextLine();
-        String line = sc.nextLine();
-        //Path path = Path.of(fileName);
-        CeaserCipher ceaserCipher = new CeaserCipher(line, 4);
-        ceaserCipher.cipher();
-        System.out.println(ceaserCipher.getSecondLine());
 
+    public static void main(String[] args) {
+        System.out.print("Введите название файла, откуда брать данные: ");
+        String fileInputName = initializeFile();
+        System.out.println(fileInputName);
+        System.out.print("Введите название файла, куда записывать данные: ");
+        String filOutName = initializeFile();
+        System.out.println(filOutName);
+    }
+
+    private static String initializeFile() {
+        String fileName;
+        try {
+            fileName = ValidateInput.validateFilePath();
+        } catch (FileNotExist e) {
+            fileName = ValidateExceptions.fileNotExistFix();
+            if (fileName == null)
+                initializeFile();
+        }
+        return fileName;
     }
 }

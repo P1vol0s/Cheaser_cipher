@@ -10,17 +10,12 @@ public class CeaserCipher {
             '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|',
             '}', '~');
 
-    private int key;
-    private static byte count = 0;
+    private  int key;
     private Files firstFileName;
     private Files secondFileName;
     private String firstLine;
-    private StringBuilder secondLine;
+    private final StringBuilder secondLine;
     private final String script;
-
-    public StringBuilder getSecondLine() {
-        return secondLine;
-    }
 
     {
         firstFileName = null;
@@ -55,6 +50,45 @@ public class CeaserCipher {
         script = "TF";
     }
 
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
+    }
+
+    public Files getFirstFileName() {
+        return firstFileName;
+    }
+
+    public void setFirstFileName(Files firstFileName) {
+        this.firstFileName = firstFileName;
+    }
+
+    public Files getSecondFileName() {
+        return secondFileName;
+    }
+
+    public void setSecondFileName(Files secondFileName) {
+        this.secondFileName = secondFileName;
+    }
+
+    public String getFirstLine() {
+        return firstLine;
+    }
+
+    public void setFirstLine(String firstLine) {
+        this.firstLine = firstLine;
+    }
+
+    public StringBuilder getSecondLine() {
+        return secondLine;
+    }
+
+    public String getScript() {
+        return script;
+    }
 
     public void cipher() {
         switch (script) {
