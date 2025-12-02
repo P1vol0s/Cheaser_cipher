@@ -18,11 +18,15 @@ public class CeaserCipher {
     private StringBuilder secondLine;
     private final String script;
 
+    public StringBuilder getSecondLine() {
+        return secondLine;
+    }
+
     {
         firstFileName = null;
         secondFileName = null;
         firstLine = null;
-        secondLine = null;
+        secondLine = new StringBuilder();
     }
 
     public CeaserCipher(Files firstFileName, Files secondFileName, int key) {
@@ -63,11 +67,10 @@ public class CeaserCipher {
 
     private void cipherTT() {
         for (char letter : firstLine.toCharArray()) {
-            if (!ALPHABET_IGNORE.contains(letter)) {
+            if (!ALPHABET_IGNORE.contains(letter))
                 secondLine.append(change(letter));
-                break;
-            }
-            secondLine.append(letter);
+            else
+                secondLine.append(letter);
         }
     }
 
