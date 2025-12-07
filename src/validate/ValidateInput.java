@@ -1,6 +1,8 @@
 package validate;
 
 import validate.exceptions.FileNotExist;
+import validate.exceptions.KeyDoesNotFitTheTemplate;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -13,4 +15,12 @@ public class ValidateInput {
             throw new FileNotExist();
         return tempFilePath;
     }
+
+    public static String validateKeyTerminalInput(){
+        var tempTermInput = IOtool.read();
+        if(!tempTermInput.matches("\\d+"))
+            throw new KeyDoesNotFitTheTemplate();
+        return tempTermInput;
+    }
+
 }

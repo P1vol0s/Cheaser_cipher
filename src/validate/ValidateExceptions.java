@@ -1,5 +1,7 @@
 package validate;
+
 import validate.exceptions.FileNotExist;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,7 +12,7 @@ import java.util.Scanner;
 public class ValidateExceptions {
     private static final Path textDirPath = Path.of("src\\text_dir");
 
-    private static boolean validateSwitchInput() {
+/*    private static boolean validateSwitchInput() {
         String yesOrNo;
         do {
             yesOrNo = IOtool.read();
@@ -23,15 +25,14 @@ public class ValidateExceptions {
     public static String fileNotExistFix() {
         sendErrMessage(new FileNotExist());
         System.err.print("Создать новый файл данных? (Y/N): ");
-
-
         if (validateSwitchInput())
             return setNewFileName();
-        System.err.println("Если вы не желаете создать новый файл, то либо введите \nновый путь к файлу (Y), либо завершите программу (N)");
+        System.err.println("Если вы не желаете создать новый файл, то либо введите \n" +
+                "новый путь к файлу (Y), либо завершите программу (N)");
         if (!validateSwitchInput())
             closeProgram();
         return null;
-        /*todo: если пользователь выбрал ввести заново, то программа возвращает false, а метод, который вызывает
+        *//*todo: если пользователь выбрал ввести заново, то программа возвращает false, а метод, который вызывает
          *      делает все через do-while. В обработке исключений, если метод вернул false вызывается метод ввода файла
          *
          *todo: 1) отправить пользователь сообщение с ошибкой, и предложить создать новый пустой файл в text_dir
@@ -39,12 +40,15 @@ public class ValidateExceptions {
          *      3) если пользователь отказывается, то предлагаем ему ввести новое имя файла
          *      4) если пользователь выбрал ввести новое имя, то опять запускаем метод со вводом имени файла
          *      5) если пользователь отказался, то завершаем программу
-         * */
+         * *//*
     }
 
-    private static String  setNewFileName(){
+    private static String setNewFileName() {
         System.err.print("Введите имя файла: ");
-        var fileName = textDirPath.resolve(IOtool.read());
+        var newFileName = IOtool.read();
+        System.out.println(newFileName.equals("\n"));
+        System.err.println();
+        var fileName = textDirPath.resolve(newFileName);
         try {
             Files.createFile(fileName);
         } catch (IOException e) {
@@ -54,30 +58,30 @@ public class ValidateExceptions {
     }
 
     public static void keyExceptionFix() {
-        /*todo: 1) отправить пользователю сообщение с ошибкой
+        *//*todo: 1) отправить пользователю сообщение с ошибкой
          *      2) предложить пользователю заново ввести ключ шифрования
          *      3) если он соглашается, то заменяем ключ на новый
-         *      4) если пользователь отказывается, то завершить программу */
+         *      4) если пользователь отказывается, то завершить программу *//*
     }
 
     public static void inputLineExceptionFix() {
-        /*todo: 1) отправить пользователю сообщение с ошибкой
+        *//*todo: 1) отправить пользователю сообщение с ошибкой
          *      2) предложить пользователю заново значения для шифрования
          *      3) если он соглашается, то заменяем значение для шифрования на новое
-         *      4) если пользователь отказался, то заверить программу*/
+         *      4) если пользователь отказался, то заверить программу*//*
     }
 
     public static void fileContentUnreadable() {
-        /*todo: 1) отправить пользователю сообщение с ошибкой
+        *//*todo: 1) отправить пользователю сообщение с ошибкой
          *      2) предложить выбрать другой файл для работы
          *      3) если пользователь соглашается, то заменяем исходный файл на тот, который он прислал
-         *      4) если он не соглашается, то завершаем программу*/
+         *      4) если он не соглашается, то завершаем программу*//*
     }
 
     private static void sendErrMessage(Exception e) {
         System.err.println("Возникла некоторая ошибка: " + e.getMessage());
-        /*todo: 1) отправляем сообщение с ошибкой */
-    }
+        *//*todo: 1) отправляем сообщение с ошибкой *//*
+    }*/
 
     private static void closeProgram() {
 
