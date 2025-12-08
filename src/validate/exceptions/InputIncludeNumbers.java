@@ -1,4 +1,4 @@
-package validate;
+package validate.exceptions;
 
 public class InputIncludeNumbers extends RuntimeException {
     public InputIncludeNumbers(String message) {
