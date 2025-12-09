@@ -1,6 +1,7 @@
 package Chipher;
 
 class BaseCipher {
+
     protected static char change(char letter, int key) {
         if (letter >= 1040 && letter <= 1071)
             return math(letter, key, 1040, 32);

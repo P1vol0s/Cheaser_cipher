@@ -5,8 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 class FFCipher extends BaseCipher {
-    private static Path filePathIn;
-    private static Path filePathOut;
+    private static Path filePathIn, filePathOut;
     private static int key;
     private static FFCipher ffCipher = null;
 
@@ -21,7 +20,7 @@ class FFCipher extends BaseCipher {
         return ffCipher;
     }
 
-    protected static void toEncrypt() {
+    protected void toEncrypt() {
         try (var read = Files.newBufferedReader(filePathIn);
              var write = Files.newBufferedWriter(filePathOut)) {
             int c;

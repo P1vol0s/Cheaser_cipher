@@ -1,13 +1,7 @@
 package Chipher;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Scanner;
-
 public class TTCipher extends BaseCipher {
-    private static StringBuilder terminalIn;
-    private static StringBuilder terminalOut;
+    private static StringBuilder terminalIn, terminalOut;
     private static int key;
     private static TTCipher ttCipher = null;
 
@@ -23,14 +17,9 @@ public class TTCipher extends BaseCipher {
     }
 
 
-    protected static void toEncrypt() {
-        Scanner sc = new Scanner(System.in);
-        terminalIn.append(sc.nextLine());
+    protected void toEncrypt() {
         for (var i : terminalIn.toString().toCharArray())
             terminalOut.append(change(i, key));
     }
 
-    public static StringBuilder getTerminalOut() {
-        return terminalOut;
-    }
 }

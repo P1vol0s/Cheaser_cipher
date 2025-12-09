@@ -22,7 +22,7 @@ public class FTCipher extends BaseCipher {
     }
 
 
-    protected static void toEncrypt() {
+    protected void toEncrypt() {
         try (var read = Files.newBufferedReader(filePathIn)) {
             int c;
             while ((c = read.read()) != -1)
@@ -32,7 +32,4 @@ public class FTCipher extends BaseCipher {
         }
     }
 
-    public static StringBuilder getTerminalOut() {
-        return terminalOut;
-    }
 }
