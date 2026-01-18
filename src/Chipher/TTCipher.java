@@ -5,8 +5,7 @@ public class TTCipher extends BaseCipher {
     private static int key;
     private static TTCipher ttCipher = null;
 
-    private TTCipher() {
-    }
+    private TTCipher() {}
 
     protected static TTCipher initialize(StringBuilder sbIn, StringBuilder sbOut, int newKey) {
         if (ttCipher == null) ttCipher = new TTCipher();

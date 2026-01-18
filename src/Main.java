@@ -1,56 +1,80 @@
 import Chipher.Cipher;
-import validate.IOtool;
 import validate.ValidateExceptions;
 import validate.ValidateInput;
 import validate.exceptions.FileNotExist;
-import validate.exceptions.InputIncludeNumbers;
 import validate.exceptions.KeyDoesNotFitTheTemplate;
-import validate.exceptions.NothingEntered;
+import validate.exceptions.NullInputException;
 
 import java.nio.file.Path;
 
 public class Main {
 
     public static void main(String[] args) {
-        var inputType = IOtool.read();
         StringBuilder inData = new StringBuilder();
         StringBuilder outData = new StringBuilder();
         int key;
-        try {
-            switch (inputType) {
-                case "FF": {
-                    inData.append(ValidateInput.validateFilePath());
-                    outData.append(ValidateInput.validateFilePath());
-                    key = ValidateInput.validateKeyInput();
-                    System.out.println(Cipher.toCipher(Path.of(inData.toString()), Path.of(outData.toString()), key));
+        var allIsOk = false;
+        System.out.println("Привет. Я твой криптоанализатор шрифтом цезаря\n" +
+                "Для начала работы введи то, откуда я буду брать данные и куда записывать их\n" +
+                "FF - из файла в файл\n" +
+                "FT - из файла в терминал\n" +
+                "TF - из терминала в файл\n" +
+                "TT - из терминала в терминал");
+        do {
+            try {
+                var inputType = ValidateInput.validateAllInput();
+                switch (inputType) {
+                    case "FF": {
+                        System.out.print("Введи полный путь к файлу, откуда я буду брать данные: ");
+                        inData.append(ValidateInput.validateFilePath());
+                        System.out.print("Введи полный путь к файлу, куда я буду записывать сообщение: ");
+                        outData.append(ValidateInput.validateFilePath());
+                        System.out.print("Введи ключ: ");
+                        key = ValidateInput.validateKeyInput();
+                        System.out.println(Cipher.toCipher(Path.of(inData.toString()), Path.of(outData.toString()), key));
+                        allIsOk = true;
+                        break;
+                    }
+                    case "FT": {
+                        System.out.print("Введи полный путь к файлу, откуда я буду брать данные: ");
+                        inData.append(ValidateInput.validateFilePath());
+                        System.out.print("Введи ключ: ");
+                        key = ValidateInput.validateKeyInput();
+                        Cipher.toCipher(Path.of(inData.toString()), outData, key);
+                        System.out.println(outData);
+                        allIsOk = true;
+                        break;
+                    }
+                    case "TF": {
+                        System.out.print("Введи текст: ");
+                        inData.append(ValidateInput.validateAllInput());
+                        System.out.print("Введи полный путь к файлу, куда я буду записывать сообщение: ");
+                        outData.append(ValidateInput.validateFilePath());
+                        System.out.print("Введи ключ: ");
+                        key = ValidateInput.validateKeyInput();
+                        System.out.println(Cipher.toCipher(inData, Path.of(outData.toString()), key));
+                        allIsOk = true;
+                        break;
+                    }
+                    case "TT": {
+                        System.out.print("Введи текст: ");
+                        inData.append(ValidateInput.validateAllInput());
+                        System.out.print("Введи ключ: ");
+                        key = ValidateInput.validateKeyInput();
+                        Cipher.toCipher(inData, outData, key);
+                        System.out.println(outData);
+                        allIsOk = true;
+                        break;
+                    }
+                    default:
+                        System.err.println("Ты ввел некорректный ключ. Введи его заново пожалуйста");
                 }
-                case "FT": {
-                    inData.append(ValidateInput.validateFilePath());
-                    key = ValidateInput.validateKeyInput();
-                    System.out.println(Cipher.toCipher(Path.of(inData.toString()), outData, key));
-                }
-                case "TF": {
-                    inData.append(ValidateInput.validateAllInput());
-                    outData.append(ValidateInput.validateFilePath());
-                    key = ValidateInput.validateKeyInput();
-                    System.out.println(Cipher.toCipher(inData, Path.of(outData.toString()), key));
-                }
-                case "TT": {
-                    inData.append(ValidateInput.validateAllInput());
-                    outData.append(ValidateInput.validateAllInput());
-                    key = ValidateInput.validateKeyInput();
-                    System.out.println(Cipher.toCipher(inData, outData, key));
-                }
+            } catch (FileNotExist e) {
+                e.printStackTrace();
+            } catch (KeyDoesNotFitTheTemplate e) {
+                e.printStackTrace();
             }
-        }catch (FileNotExist e){
-
-        }catch (InputIncludeNumbers e){
-
-        }catch (KeyDoesNotFitTheTemplate e){
-
-        }catch (NothingEntered e){
-
-        }
+        } while (!allIsOk);
     }
 
 

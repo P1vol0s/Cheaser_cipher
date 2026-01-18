@@ -9,8 +9,7 @@ class FFCipher extends BaseCipher {
     private static int key;
     private static FFCipher ffCipher = null;
 
-    private FFCipher() {
-    }
+    private FFCipher() {}
 
     protected static FFCipher initialize(Path newFilePath1, Path newFilePath2, int newKey) {
         if (ffCipher == null) ffCipher = new FFCipher();

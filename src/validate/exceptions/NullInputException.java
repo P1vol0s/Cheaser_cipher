@@ -1,10 +1,10 @@
 package validate.exceptions;
 
-public class NothingEntered extends RuntimeException {
+public class NullInputException extends RuntimeException {
 
-    public NothingEntered (){}
+    public NullInputException(){}
 
-    public NothingEntered(String message) {
+    public NullInputException(String message) {
         super(message);
     }
 

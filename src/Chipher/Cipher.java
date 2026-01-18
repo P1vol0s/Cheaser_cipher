@@ -13,10 +13,9 @@ public class Cipher {
         return "Все зашифровано. Проверьте файл";
     }
 
-    public static StringBuilder toCipher(Path filePathIn, StringBuilder terminalOut, int key) {
+    public static void toCipher(Path filePathIn, StringBuilder terminalOut, int key) {
         FTCipher ftCipher = FTCipher.initialize(filePathIn, terminalOut, key);
         ftCipher.toEncrypt();
-        return terminalOut;
     }
 
     public static String toCipher(StringBuilder terminalIn, Path filePathOut, int key) {
@@ -25,10 +24,9 @@ public class Cipher {
         return "Все зашифровано. Проверьте файл";
     }
 
-    public static StringBuilder toCipher(StringBuilder terminalIn, StringBuilder terminalOut, int key) {
+    public static void toCipher(StringBuilder terminalIn, StringBuilder terminalOut, int key) {
         TTCipher ttCipher = TTCipher.initialize(terminalIn, terminalOut, key);
         ttCipher.toEncrypt();
-        return terminalOut;
     }
 
     public static void decode(Path filePathIn, Path filePathOut, int key) {
@@ -46,9 +44,6 @@ public class Cipher {
     public static void decode(StringBuilder terminalIn, StringBuilder terminalOut, int key) {
         toCipher(terminalIn, terminalOut, -1 * key);
     }
-
-
-
 
 
 

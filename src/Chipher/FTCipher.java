@@ -10,8 +10,7 @@ public class FTCipher extends BaseCipher {
     private static int key;
     private static FTCipher ftCipher = null;
 
-    private FTCipher() {
-    }
+    private FTCipher() {}
 
     protected static FTCipher initialize(Path newFilePath, StringBuilder sb, int newKey) {
         if (ftCipher == null) ftCipher = new FTCipher();
