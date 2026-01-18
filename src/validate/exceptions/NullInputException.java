@@ -2,10 +2,8 @@ package validate.exceptions;
 
 public class NullInputException extends RuntimeException {
 
-    public NullInputException(){}
-
-    public NullInputException(String message) {
-        super(message);
+    public NullInputException() {
+        System.err.println("Возникла некоторая ошибка: " + this.getMessage());
     }
 
     @Override

@@ -1,11 +1,9 @@
 package validate.exceptions;
 
 public class KeyDoesNotFitTheTemplate extends RuntimeException {
-    public KeyDoesNotFitTheTemplate(String message) {
-        super(message);
-    }
 
     public KeyDoesNotFitTheTemplate() {
+        System.err.println("Возникла некоторая ошибка: " + this.getMessage());
     }
 
     @Override
