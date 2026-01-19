@@ -15,15 +15,15 @@ public class ValidateInput {
         try {
             if (!Files.exists(Path.of(tempFilePath))) throw new FileNotExist();
         }catch (FileNotExist e){
-            tempFilePath = ValidateExceptions.validateFileNotExist(e);
+            tempFilePath = ValidateExceptions.validateFileNotExist();
         }
         return tempFilePath;
     }
 
     public static String validateFilePathNotExists(){
         var tempFilePath = validateAllInput();
-        if (Files.exists(Path.of(tempFilePath))) {
-            System.err.println("Файл с таким именем уже существует. Введите другое имя");
+        if (Files.exists(Path.of("src\\text_dir\\" + tempFilePath))) {
+            System.err.println("Файл с таким именем уже существует. Введи другое имя: ");
             return validateFilePathNotExists();
         }
         return tempFilePath;
@@ -34,7 +34,7 @@ public class ValidateInput {
         try {
             if(!tempTermInput.matches("\\d+")) throw new KeyDoesNotFitTheTemplate();
         }catch (KeyDoesNotFitTheTemplate e){
-            tempTermInput = ValidateExceptions.validateKeyException(e);
+            tempTermInput = ValidateExceptions.validateKeyException();
         }
         return Integer.parseInt(tempTermInput);
     }
@@ -45,7 +45,7 @@ public class ValidateInput {
         try {
             if (inputData == null || inputData.equals("\n") || inputData.isEmpty() || inputData.equals(" ")) throw new NullInputException();
         }catch (NullInputException e){
-            inputData = ValidateExceptions.validateNullInput(e);
+            inputData = ValidateExceptions.validateNullInput();
         }
         return inputData;
     }

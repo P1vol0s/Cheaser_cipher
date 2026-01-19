@@ -19,7 +19,7 @@ public class Main {
         var inputType = ValidateInput.validateAllInput();
         System.out.println("""
                 Теперь давай определимся, надо мне зашифровать данные или расшифровать?
-                Введите 1 или -1 для выбора режима работы
+                Введи 1 или -1 для выбора режима работы
                 1 - шифрование
                 -1 - расшифровка""");
         var workType = ValidateInput.validateSwitchInput("-1", "1");
