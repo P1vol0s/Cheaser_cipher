@@ -11,48 +11,42 @@ import java.nio.file.Path;
 public class ValidateExceptions {
     public static String validateNullInput(NullInputException e) {
         String value;
-        System.err.println("Возникла некоторая ошибка: " + e.getMessage());
         System.err.println("Пожалуйста, введите что-то, иначе я не могу работать");
         value = ValidateInput.validateAllInput();
         return value;
     }
 
     public static String validateFileNotExist(FileNotExist e) {
-        System.err.println("Возникла некоторая ошибка: " + e.getMessage());
-        System.err.println("Хотите, я создам для вас новый файл, с которым вы сможете работать?  (Y/N): ");
-        var yesOrNo = ValidateInput.validateSwitchInput();
+        System.err.print("Хотите, я создам для вас новый файл, с которым вы сможете работать?  (Y/N): ");
+        var yesOrNo = ValidateInput.validateSwitchInput("Y", "N");
         if (yesOrNo.equals("Y")) {
-            System.err.println("Введи имя, которым ты обзовешь файл: ");
+            System.err.print("Введи имя, которым ты обзовешь файл: ");
             var nameTempFile = ValidateInput.validateFilePathNotExists();
             try {
-                Files.createFile(Path.of("text_dir/" + nameTempFile));
+                System.out.println(Path.of(nameTempFile).toAbsolutePath());
+                Files.createFile(Path.of("src\\text_dir\\" + nameTempFile));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            return nameTempFile;
-            /*todo: 1) проверить, существует ли файл с таким именем в temp-дерективе
-             *       2) если нету, то создать такой файл
-             *       3) если есть, то просим написать еще раз
-             * */
+            return Path.of("src\\text_dir\\" + nameTempFile).toAbsolutePath().toString();
         } else {
-            System.err.println("Хотите ввести имя пользователя заново? (Y/N)");
-            yesOrNo = ValidateInput.validateSwitchInput();
+            System.err.print("Хотите ввести путь к файлу заново? (Y/N): ");
+            yesOrNo = ValidateInput.validateSwitchInput("Y", "N");
             if (yesOrNo.equals("N")){
-                System.err.println("Программа завершена");
+                System.err.print("Программа завершена");
                 System.exit(1);
             }
+            System.err.print("Введите путь к файлу: ");
             return ValidateInput.validateFilePathExists();
-            /*todo: 1) предложить человеку написать заново имя файла
-             *       2) если согласится, то выполняем заново validateFilePath
-             *       3) если не согласится, то завершаем программу*/
         }
     }
 
     public static String validateKeyException(KeyDoesNotFitTheTemplate e){
-        System.err.println("Возникла некоторая ошибка: " + e.getMessage());
-        System.err.println("Введите ключ заново:");
+        System.err.print("Введите ключ заново: ");
         return String.valueOf(ValidateInput.validateKeyInput());
     }
+
+    //C:\Users\skude\IdeaProjects\Cheaser_cipher\src\text_dir
 }
 
 

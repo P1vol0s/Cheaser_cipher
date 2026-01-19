@@ -29,6 +29,4 @@ class FFCipher extends BaseCipher {
             throw new RuntimeException(e);
         }
     }
-
-
 }

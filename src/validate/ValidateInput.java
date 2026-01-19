@@ -50,12 +50,14 @@ public class ValidateInput {
         return inputData;
     }
 
-    protected static String validateSwitchInput(){
+    public static String validateSwitchInput(String key1, String key2){
         var yesOrNo = validateAllInput();
-        if(!Arrays.asList("Y", "N").contains(yesOrNo)){
-            System.out.println("Ты ввел что-то кроме Y или N. Пожалуйста, введи нормальные значения, или я обижусь и не буду работать");
-            yesOrNo = validateSwitchInput();
+        if(!Arrays.asList(key1, key2).contains(yesOrNo)){
+            System.out.printf("Ты ввел что-то кроме %s или %s. Пожалуйста, введи нормальные значения, или я обижусь и не буду работать %n", key1, key2);
+            yesOrNo = validateSwitchInput(key1, key2);
         }
         return yesOrNo;
     }
 }
+
+

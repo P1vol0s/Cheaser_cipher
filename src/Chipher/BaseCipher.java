@@ -14,6 +14,4 @@ class BaseCipher {
         int offset = (letter - minLetter + key) % alphabetLen;
         return (char) (minLetter + (offset < 0 ? offset + alphabetLen : offset));
     }
-
-
 }
